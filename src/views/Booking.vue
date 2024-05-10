@@ -1,7 +1,54 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
-import { RouterLink } from "vue-router";
+import { ref, onMounted } from "vue";
+import axios from "axios";
+
+
+
+//GETS USER DATA START (WORKS)
+const userData = ref({});
+
+const fetchUser = () => {
+  const url = 'http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all';
+  axios.get(url)
+    .then((response) => {
+      userData.value = response.data[0]; // Assuming you're fetching only one user
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error)
+    });
+};
+
+onMounted(fetchUser);
+//GET USER DATA ENDS
+
+//MAKES BOOK RECORDS (WORKS)
+const selectedPackage = ref('');
+const selectedDate = ref('');
+
+const registerBooking = () => {
+  const payload = {
+    user_id: userData.value.user_id,
+    package: selectedPackage.value,
+    date: selectedDate.value
+  };
+
+  console.log('Selected ID:', payload.user_id);
+  // Log to check if package is retrieved correctly
+  console.log('Selected Package:', payload.package);
+  // Log to check if date is retrieved correctly
+  console.log('Selected Date:', payload.date);
+
+
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=create_booking', payload)
+    .then(response => {
+      console.log('Booking created:', response.data);
+    })
+    .catch(error => {
+      console.error('Error creating booking:', error);
+    });
+};
 </script>
 
 <template>
@@ -11,26 +58,40 @@ import { RouterLink } from "vue-router";
       <div class="opacity-black-screen">
         <div class="wrapper2">
           <div class="login-container">
-              <form class="login-form" action="#" method="POST">
-                  <div class="input-box">
-                      <label for="name">Name</label>
-                      <input id="name" class="block mt-1 w-full" type="text" value="Rovick Merto" readonly />
-                  </div>
-                  <div class="input-box">
-                      <label for="contact">Contact Number</label>
-                      <input id="contact" class="block mt-1 w-full" type="text" value="0912345678901" readonly />
-                  </div>
-                  <div class="input-box">
-                      <label for="email">Email</label>
-                      <input id="email" class="block mt-1 w-full" type="text" value="rovickmerto@gmail.com" readonly />
-                  </div>
+              <form class="login-form" @submit.prevent="registerBooking">
+                <div class="input-box">
+                  <input id="userId" type="hidden" v-model="userData.user_id" />
+                </div>
+                <div class="input-box">
+                  <label for="name">Name</label>
+                  <input id="name" class="block mt-1 w-full" type="text" v-model="userData.username" readonly />
+                </div>
+                <div class="input-box">
+                  <label for="contact">Contact Number</label>
+                  <input id="contact" class="block mt-1 w-full" type="text" v-model="userData.contact_number" readonly />
+                </div>
+                <div class="input-box">
+                  <label for="email">Email</label>
+                  <input id="email" class="block mt-1 w-full" type="text" v-model="userData.email" readonly />
+                </div>
+                <div class="input-box">
+                  <label for="package">Choose Package</label>
+                  <select id="package" class="block mt-1 w-full" v-model="selectedPackage">
+                    <option value="Package 1">Package 1</option>
+                    <option value="Package 2">Package 2</option>
+                    <option value="Package 3">Package 3</option>
+                    <option value="Package 4">Package 4</option>
+                    <option value="Package 5">Package 5</option>
+                    <option value="Package 6">Package 6</option>
+                  </select>
+                </div>
                   <div class="input-box">
                       <label for="date">Choose Date</label>
-                      <input id="date" class="block mt-1 w-full" type="date" required />
+                      <input id="date" class="block mt-1 w-full" type="date" v-model="selectedDate" required />
                   </div>
                   <div class="flex items-center justify-end mt-4">
-                      <center><button type="submit" class="btn">Book Now</button></center>
-                  </div>
+                  <button type="submit" class="btn">Book Now</button>
+                </div>
               </form>
           </div>
         </div>
@@ -42,6 +103,8 @@ import { RouterLink } from "vue-router";
     <Footers/>
   </main>
 </template>
+
+
 
 <style scoped>
 .wrapper {

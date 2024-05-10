@@ -1,33 +1,88 @@
-<template>
-    <div class="background">
-  <div class="opacity-black-screen">
-    <div class="wrapper">
-<div class="login-container">
-<form class="login-form" action="#" method="POST">
-    <h1>REGISTER</h1>
-  <div class="input-box">
-    <label for="email">Email</label>
-    <input id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="username" />
-  </div>
-  <div class="input-box">
-    <label for="password">Password</label>
-    <input id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
-  </div>
-  <div class="flex items-center justify-end mt-4">
-    <button type="submit" class="btn">Register</button>
-  </div>
-  <div class="register-link">
-        <p>Already have an account? <a href="login">Login</a></p>
-      </div>
+<script setup>
+import NavBar from "@/components/NavBar.vue";
+import Footers from "@/components/Footers.vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
-</form>
-</div>
-</div>
-    <div class="business-logo-container">
-      <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+const userData = ref({});
+
+// Define reactive variables for form inputs
+const input_email = ref('');
+const input_username = ref('');
+const input_contact_number = ref('');
+const input_password = ref('');
+
+const registerUser = () => {
+  const payload = {
+    email: input_email.value,
+    username: input_username.value,
+    contact_number: input_contact_number.value,
+    password: input_password.value
+  };
+
+  console.log('Selected Email:', payload.email);
+  // Log to check if package is retrieved correctly
+  console.log('Selected Username:', payload.username);
+  // Log to check if date is retrieved correctly
+  console.log('Selected Contact Number:', payload.contact_number);
+  // Log to check if date is retrieved correctly
+  console.log('Selected Password:', payload.password);
+
+  //check the type
+  console.log('Email Data Type:', typeof input_email.value);
+  console.log('Username Data Type:', typeof input_username.value);
+  console.log('Contact Number Data Type:', typeof input_contact_number.value);
+  console.log('Password Data Type:', typeof input_password.value);
+
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=create_user', payload)
+    .then(response => {
+      console.log('Account created:', response.data);
+    })
+    .catch(error => {
+      console.error('Error creating booking:', error);
+    });
+};
+</script>
+
+<template>
+  <div class="background">
+    <div class="opacity-black-screen">
+      <div class="wrapper">
+        <div class="login-container">
+          <form class="login-form" @submit.prevent="registerUser">
+            <h1>REGISTER</h1>
+            <div class="input-box">
+              <label for="email">Email</label>
+              <input v-model="input_email" id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="email" />
+            </div>
+            <div class="input-box">
+            <label for="username">Username</label>
+            <input v-model="input_username" id="username" class="block mt-1 w-full" type="text" required autocomplete="username" />
+            </div>
+
+            <div class="input-box">
+              <label for="contact_number">Contact Number</label>
+              <input v-model="input_contact_number" id="contact_number" class="block mt-1 w-full" type="tel" required autocomplete="contact_number" />
+            </div>
+
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input v-model="input_password" id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
+            </div>
+            <div class="flex items-center justify-end mt-4">
+              <button type="submit" class="btn">Register</button>
+            </div>
+            <div class="register-link">
+              <p>Already have an account? <a href="login">Login</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="business-logo-container">
+        <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <style>
