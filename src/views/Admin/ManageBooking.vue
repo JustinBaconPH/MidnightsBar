@@ -16,7 +16,7 @@ const archiveBooking = (id) => {
     book_id: id
   };
 
-  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php', data)
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php', data)
     .then(() => {
       fetchBook();
     })
@@ -31,7 +31,7 @@ const unarchiveBooking = (id) => {
     book_id: id
   };
 
-  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php', data)
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php', data)
     .then(() => {
       fetchBook();
     })
@@ -41,7 +41,7 @@ const unarchiveBooking = (id) => {
 };
 
 const fetchBook = () => {
-  const url = showArchived.value ? 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all_deleted' : 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all_notdeleted';
+  const url = showArchived.value ? 'https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all_deleted' : 'https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all_notdeleted';
   axios.get(url)
     .then((response) => {
       book.value = response.data;

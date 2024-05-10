@@ -37,7 +37,7 @@ const registerUser = () => {
   console.log('Contact Number Data Type:', typeof input_contact_number.value);
   console.log('Password Data Type:', typeof input_password.value);
 
-  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=create_user', payload)
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=create_user', payload)
     .then(response => {
       console.log('Account created:', response.data);
       router.push('/login');
