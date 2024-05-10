@@ -165,6 +165,12 @@ const nextPage = () => {
   border-color: #007bff;
 }
 
+.btn-primary:hover {
+  color: #fff;
+  background-color: #005cbe;
+  border-color: #00438a;
+}
+
 .btn-danger {
   color: #fff;
   background-color: #dc3545;
@@ -240,6 +246,10 @@ nav {
   color: white;
   border: none;
   border-radius: 4px;
+}
+
+.pagination-button:hover {
+  background-color: #317233;
 }
 
 .text-overflow {
