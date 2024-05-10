@@ -17,7 +17,7 @@ const fetchUserData = () => {
 
   if (loggedInUserId) {
     // Perform API request to fetch user data using the loggedInUserId
-    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+    axios.get(`http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
       .then(response => {
         // Assuming response.data contains user data and we want the first item
         userData.value = response.data[0];

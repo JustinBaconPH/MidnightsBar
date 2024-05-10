@@ -16,7 +16,7 @@ const archiveUser = (id) => {
     user_id: id
   };
 
-  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php', data)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php', data)
     .then(() => {
       fetchUser();
     })
@@ -31,7 +31,7 @@ const unarchiveUser = (id) => {
     user_id: id
   };
 
-  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php', data)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php', data)
     .then(() => {
       fetchUser();
     })
@@ -41,7 +41,7 @@ const unarchiveUser = (id) => {
 };
 
 const fetchUser = () => {
-  const url = showArchived.value ? 'https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_deleted' : 'https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_notdeleted';
+  const url = showArchived.value ? 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_deleted' : 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_notdeleted';
   axios.get(url)
     .then((response) => {
       user.value = response.data;

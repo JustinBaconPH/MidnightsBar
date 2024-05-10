@@ -10,7 +10,7 @@ const user = ref(null);
 
 // Fetch the username of the user who posted the review
 const fetchUsername = () => {
-    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_by_id&review_id=${props.review.review_id}`)
+    axios.get(`http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_by_id&review_id=${props.review.review_id}`)
         .then(response => {
             user.value = response.data.username;
         })

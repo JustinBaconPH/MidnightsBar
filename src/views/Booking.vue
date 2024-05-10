@@ -18,7 +18,7 @@ const router = useRouter();
 const fetchUser = () => {
   const loggedInUserId = localStorage.getItem('loggedInUserId');
   if (loggedInUserId) {
-    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+    axios.get(`http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
       .then((response) => {
         userData.value = response.data[0]; // Assuming you're fetching only one user
       })
@@ -47,7 +47,7 @@ const registerBooking = () => {
   console.log('Selected Date:', payload.date);
 
 
-  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=create_booking', payload)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=create_booking', payload)
     .then(response => {
       console.log('Booking created:', response.data);
       router.push('/home');
