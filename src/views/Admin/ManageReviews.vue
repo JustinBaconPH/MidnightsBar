@@ -5,7 +5,7 @@ import AdminNavBar from '@/components/AdminNavBar.vue';
 import Footers from '@/components/Footers.vue';
 
 const reviews = ref([]);
-const pageSize = 10;
+const pageSize = 5;
 const currentPage = ref(1);
 const totalPages = computed(() => Math.ceil(reviews.value.length / pageSize));
 const showArchived = ref(false);
