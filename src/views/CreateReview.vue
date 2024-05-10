@@ -5,25 +5,62 @@ import { RouterLink } from "vue-router";
 </script>
 
 <template>
-    <main>
-      <NavBar />
-      <div class="background">
-        <div class="opacity-black-screen">
-            <div class="wrapper">
-                <h1>Rate your experience!</h1>
-                <div class="content">We highly value your feedback! Kindly take a moment to share your experiences with us!</div>
-                <textarea cols="50" rows="6" placeholder="Tell us about your experience!"></textarea>
-                <button class="btn">Send</button>
-            </div>
+  <main>
+    <NavBar />
+    <div class="background">
+      <div class="opacity-black-screen">
+        <div class="wrapper">
+          <h1>Rate your experience!</h1>
+          <div class="content">We highly value your feedback! Kindly take a moment to share your experiences with us!
+          </div>
+
+          <p class="text-label">Stars: </p>
+          <select v-model="selectedRating" class="dropdown">
+            <option :value="null" disabled>Select your rating</option>
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 star</option>
+          </select>
+          <textarea v-model="review" cols="50" rows="6" placeholder="Tell us about your experience!"></textarea>
+          <button @click="submitReview" class="btn">Send</button>
         </div>
+      </div>
     </div>
-    <Footers/>
+    <Footers />
   </main>
 </template>
 
 <style scoped>
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  background-color: transparent;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.dropdown option {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.dropdown:focus {
+  border-color: #3498db;
+}
+
+.text-label {
+  margin-top: 10px;
+}
+
 .wrapper {
-  width: 420px; /* Keep the width as it is */
+  width: 420px;
+  /* Keep the width as it is */
   background: transparent;
   border: 2px solid rgba(255, 255, 255, .2);
   backdrop-filter: blur(15px);
@@ -34,9 +71,11 @@ import { RouterLink } from "vue-router";
   color: #fff;
   border-radius: 10px;
   padding: 30px 40px;
-  position: absolute; /* Add this line */
-   /* Adjust the left position according to your preference */
+  position: absolute;
+  /* Add this line */
+  /* Adjust the left position according to your preference */
 }
+
 main {
   background-color: #000;
   min-height: 100vh;
@@ -66,6 +105,7 @@ main {
   justify-content: center;
   align-items: center;
 }
+
 .wrapper h1 {
   font-size: 36px;
   text-align: left;
@@ -87,23 +127,23 @@ textarea {
 }
 
 .wrapper .btn {
-    width: 20%;
-    height: 45px;
-    background: #fff;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+  width: 20%;
+  height: 45px;
+  background: #fff;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .wrapper .btn:hover {
-    background-color: black;
-    color: #fff; 
+  background-color: black;
+  color: #fff;
 }
 </style>
