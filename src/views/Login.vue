@@ -19,7 +19,7 @@ const loginUser = () => {
   };
 
   //WORKS
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=login_user', payload)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=login_user', payload)
     .then(response => {
       console.log('Login response:', response.data);
       if (response.data.error) {

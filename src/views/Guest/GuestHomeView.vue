@@ -9,7 +9,7 @@ import ReviewBox from '@/components/ReviewBox.vue';
 const reviews = ref([]);
 
 onMounted(() => {
-  axios.get('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all')
+  axios.get('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all')
     .then((response) => {
       reviews.value = response.data;
     })

@@ -16,7 +16,7 @@ const archiveReview = (id) => {
     review_id: id
   };
 
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
     .then(() => {
       fetchReviews();
     })
@@ -31,7 +31,7 @@ const unarchiveReview = (id) => {
     review_id: id
   };
 
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
     .then(() => {
       fetchReviews();
     })
@@ -41,7 +41,7 @@ const unarchiveReview = (id) => {
 };
 
 const fetchReviews = () => {
-  const url = showArchived.value ? 'http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all_deleted' : 'http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all';
+  const url = showArchived.value ? 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all_deleted' : 'http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all';
   axios.get(url)
     .then((response) => {
       reviews.value = response.data;
