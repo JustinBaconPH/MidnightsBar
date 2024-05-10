@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
@@ -31,7 +30,7 @@ const updateUser = () => {
   const userId = userData.value.user_id;
   const username = userData.value.username;
   const contactNumber = userData.value.contact_number;
-  
+
   // Perform an API request to update user data
   axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=update_user', { userId, username, contactNumber })
     .then(response => {
@@ -85,9 +84,10 @@ const updateUser = () => {
 </template>
 
 
-  <style scoped>
+<style scoped>
 .wrapper {
-  width: 420px; /* Keep the width as it is */
+  width: 420px;
+  /* Keep the width as it is */
   background-color: #fff;
   border: 2px solid rgba(255, 255, 255, .2);
   backdrop-filter: blur(15px);
@@ -101,34 +101,42 @@ const updateUser = () => {
   position: absolute;
   left: 50%;
   top: 30%;
-  transform: translate(-50%, -50%); /* Center the element both horizontally and vertically */
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Arrange children vertically */
-  align-items: center; /* Center children horizontally */
-  justify-content: center; /* Center children vertically */
+  transform: translate(-50%, -50%);
+  /* Center the element both horizontally and vertically */
+  display: flex;
+  /* Use flexbox */
+  flex-direction: column;
+  /* Arrange children vertically */
+  align-items: center;
+  /* Center children horizontally */
+  justify-content: center;
+  /* Center children vertically */
 }
 
-  .user-avatar {
-    margin: 0 0 1rem 0;
-  }
-  .user-avatar img {
-    width: 90px;
-    height: 90px;
-    -webkit-border-radius: 100px;
-    -moz-border-radius: 100px;
-    border-radius: 100px;
-  }
-  h5.user-name {
-    margin: 0 0 0.5rem 0;
-  }
-  h6.user-email {
-    margin: 0;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #9fa8b9;
-  }
+.user-avatar {
+  margin: 0 0 1rem 0;
+}
 
-  .wrapper2 {
+.user-avatar img {
+  width: 90px;
+  height: 90px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+}
+
+h5.user-name {
+  margin: 0 0 0.5rem 0;
+}
+
+h6.user-email {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #9fa8b9;
+}
+
+.wrapper2 {
   width: 420px;
   /* Keep the width as it is */
   background: transparent;
@@ -144,35 +152,40 @@ const updateUser = () => {
   text-align: left;
   position: absolute;
   /* Adjust the top position to position it below wrapper1 */
-  top: 72%; 
+  top: 72%;
   /* Adjust the left position according to your preference */
-  left: 50%; 
-  transform: translate(-50%, -50%); /* Center the element both horizontally and vertically */
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Arrange children vertically */
-  align-items: center; /* Center children horizontally */
-  justify-content: center; /* Center children vertically */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Center the element both horizontally and vertically */
+  display: flex;
+  /* Use flexbox */
+  flex-direction: column;
+  /* Arrange children vertically */
+  align-items: center;
+  /* Center children horizontally */
+  justify-content: center;
+  /* Center children vertically */
 }
 
 .wrapper2 .btn {
-    width: 50%;
-    height: 45px;
-    background: #fff;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+  width: 50%;
+  height: 45px;
+  background: #fff;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .wrapper2 .btn:hover {
-    background-color: black;
-    color: #fff; 
+  background-color: black;
+  color: #fff;
 }
 
 main {
@@ -188,8 +201,10 @@ main {
 }
 
 .input-box {
-  display: flex; /* Use flexbox to arrange items in a row */
-  flex-direction: column; /* Arrange children vertically */
+  display: flex;
+  /* Use flexbox to arrange items in a row */
+  flex-direction: column;
+  /* Arrange children vertically */
   margin-bottom: 20px;
 }
 
@@ -203,6 +218,7 @@ main {
   width: 100%;
   padding: 10px;
   border: 2px solid #ccc;
+  color: #000;
   border-radius: 5px;
   font-size: 16px;
 }
@@ -214,12 +230,14 @@ main {
 
 /* Additional styles to make inputs in the same row */
 .input-box.row {
-  flex-direction: row; /* Arrange children horizontally */
-  align-items: center; /* Center children vertically */
+  flex-direction: row;
+  /* Arrange children horizontally */
+  align-items: center;
+  /* Center children vertically */
 }
 
 .input-box.row label {
-  margin-right: 10px; /* Add some space between label and input */
+  margin-right: 10px;
+  /* Add some space between label and input */
 }
-  </style>
-  
+</style>

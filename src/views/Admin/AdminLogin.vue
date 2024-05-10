@@ -41,8 +41,6 @@ const loginAdmin = () => {
 };
 </script>
 
-
-
 <template>
   <div class="background">
     <div class="opacity-black-screen">
@@ -69,16 +67,12 @@ const loginAdmin = () => {
             <div class="flex items-center justify-end mt-4">
               <button type="submit" class="btn">Log in</button>
               <center v-if="loginError" style="color: red;">{{ loginError }}</center>
-              <center>
-                <router-link to="/" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md">Forgot your
-                  password?</router-link>
-              </center>
             </div>
           </form>
         </div>
       </div>
       <div class="business-logo-container">
-        <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+        <router-link to="/"><img src="@/assets/midnights-logo.png" alt="" class="business-logo"></router-link>
       </div>
     </div>
   </div>
