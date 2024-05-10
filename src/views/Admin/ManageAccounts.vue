@@ -4,64 +4,64 @@ import axios from 'axios';
 import AdminNavBar from '@/components/AdminNavBar.vue';
 import Footers from '@/components/Footers.vue';
 
-const reviews = ref([]);
+const user = ref([]);
 const pageSize = 10;
 const currentPage = ref(1);
-const totalPages = computed(() => Math.ceil(reviews.value.length / pageSize));
+const totalPages = computed(() => Math.ceil(user.value.length / pageSize));
 const showArchived = ref(false);
 
-const archiveReview = (id) => {
+const archiveUser = (id) => {
   const data = {
     action: 'soft_archive',
-    review_id: id
+    user_id: id
   };
 
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php', data)
     .then(() => {
-      fetchReviews();
+      fetchUser();
     })
     .catch((error) => {
-      console.error('Error archiving review:', error);
+      console.error('Error archiving user:', error);
     });
 };
 
-const unarchiveReview = (id) => {
+const unarchiveUser = (id) => {
   const data = {
     action: 'soft_unarchive',
-    review_id: id
+    user_id: id
   };
 
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php', data)
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php', data)
     .then(() => {
-      fetchReviews();
+      fetchUser();
     })
     .catch((error) => {
-      console.error('Error unarchiving review:', error);
+      console.error('Error unarchiving user:', error);
     });
 };
 
-const fetchReviews = () => {
-  const url = showArchived.value ? 'http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all_deleted' : 'http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_all';
+const fetchUser = () => {
+  const url = showArchived.value ? 'http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_deleted' : 'http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=get_all_notdeleted';
   axios.get(url)
     .then((response) => {
-      reviews.value = response.data;
+      user.value = response.data;
     })
     .catch((error) => {
       console.error('Error fetching data:', error)
     });
 };
 
-onMounted(fetchReviews);
+onMounted(fetchUser);
 
 const toggleShowArchived = () => {
   showArchived.value = !showArchived.value;
-  fetchReviews();
+  fetchUser();
 };
 
-const paginatedReviews = computed(() => {
+const paginatedUsers = computed(() => {
   const startIndex = (currentPage.value - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  return reviews.value.slice(startIndex, endIndex);
+  return user.value.slice(startIndex, endIndex);
 });
 
 const prevPage = () => {
@@ -83,7 +83,7 @@ const nextPage = () => {
     <div class="container">
       <div class="content">
         <div class="text-center">
-          <h1 class="">REVIEWS</h1>
+          <h1 class="">USERS</h1>
         </div>
         <div class="add-button">
           <button @click="toggleShowArchived" :class="showArchived ? 'btn btn-danger' : 'btn btn-primary'">
@@ -95,23 +95,21 @@ const nextPage = () => {
           <table>
             <thead>
               <tr>
-                <th class="table-header text-center">Review ID</th>
                 <th class="table-header text-center">User ID</th>
-                <th class="table-header text-center">Content</th>
-                <th class="table-header text-center">Stars</th>
-                <th class="table-header text-center">Date</th>
+                <th class="table-header text-center">Email</th>
+                <th class="table-header text-center">Username</th>
+                <th class="table-header text-center">Contact Number</th>
                 <th class="table-header text-center">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(review, index) in paginatedReviews" :key="index">
-                <td class="text-center">{{ review.review_id }}</td>
-                <td class="text-center">{{ review.user_id }}</td>
-                <td class="text-center text-overflow">{{ review.review_content }}</td>
-                <td class="text-center">{{ review.review_stars }}</td>
-                <td class="text-center">{{ review.review_date }}</td>
+              <tr v-for="(user, index) in paginatedUsers" :key="index">
+                <td class="text-center">{{ user.user_id }}</td>
+                <td class="text-center">{{ user.email }}</td>
+                <td class="text-center">{{ user.username }}</td>
+                <td class="text-center">{{ user.contact_number }}</td>
                 <td class="text-center">
-                  <button @click="showArchived ? unarchiveReview(review.review_id) : archiveReview(review.review_id)"
+                  <button @click="showArchived ? unarchiveUser(user.user_id) : archiveUser(user.user_id)"
                     :class="showArchived ? 'btn btn-primary' : 'btn btn-danger'">
                     {{ showArchived ? 'Unarchive' : 'Archive' }}
                   </button>

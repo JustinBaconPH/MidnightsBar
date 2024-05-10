@@ -54,6 +54,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'create_user') 
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
+    // Retrieve all not deleted records
+    if ($_GET['action'] === 'get_all_notdeleted') {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE is_deleted = 0");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($rows);
+    }
+
+    // Retrieve all deleted records
+    if ($_GET['action'] === 'get_all_deleted') {
+        $stmt = $conn->prepare("SELECT * FROM users WHERE is_deleted = 1");
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($rows);
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    // Archive
+    if ($data['action'] === 'soft_archive') {
+        $user_id = $data['user_id'];
+
+        try {
+            $stmt = $conn->prepare("UPDATE users SET is_deleted = 1 WHERE user_id = :user_id");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            echo json_encode(array("message" => "User archived successfully"));
+        } catch (PDOException $e) {
+            echo json_encode(array("error" => $e->getMessage()));
+        }
+    }
+
+    // Unarchive
+    if ($data['action'] === 'soft_unarchive') {
+        $user_id = $data['user_id'];
+
+        try {
+            $stmt = $conn->prepare("UPDATE users SET is_deleted = 0 WHERE user_id = :user_id");
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            echo json_encode(array("message" => "User unarchived successfully"));
+        } catch (PDOException $e) {
+            echo json_encode(array("error" => $e->getMessage()));
+        }
+    }
+}
+
 
 ?>
 

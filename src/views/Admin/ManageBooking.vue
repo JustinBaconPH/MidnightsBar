@@ -106,7 +106,7 @@ const nextPage = () => {
               <tr v-for="(book, index) in paginatedBooking" :key="index">
                 <td class="text-center">{{ book.book_id }}</td>
                 <td class="text-center">{{ book.user_id }}</td>
-                <td class="text-center text-overflow">{{ book.book_package }}</td>
+                <td class="text-center">{{ book.book_package }}</td>
                 <td class="text-center">{{ book.book_date }}</td>
                 <td class="text-center">
                   <button @click="showArchived ? unarchiveBooking(book.book_id) : archiveBooking(book.book_id)"
