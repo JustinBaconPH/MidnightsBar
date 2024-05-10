@@ -3,11 +3,15 @@ import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
+
 
 //MAKES BOOK RECORDS (WORKS)
 const userData = ref({});
 const selectedPackage = ref('');
 const selectedDate = ref('');
+
+const router = useRouter();
 
 // WORKS
 // Function to fetch user data upon component mount
@@ -46,10 +50,25 @@ const registerBooking = () => {
   axios.post('http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=create_booking', payload)
     .then(response => {
       console.log('Booking created:', response.data);
+      router.push('/home');
     })
     .catch(error => {
       console.error('Error creating booking:', error);
     });
+};
+
+const getTodayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let day = today.getDate();
+
+  // Add leading zero if month or day is less than 10
+  month = month < 10 ? '0' + month : month;
+  day = day < 10 ? '0' + day : day;
+
+  // Format: YYYY-MM-DD
+  return `${year}-${month}-${day}`;
 };
 </script>
 
@@ -89,7 +108,7 @@ const registerBooking = () => {
                 </div>
                   <div class="input-box">
                       <label for="date">Choose Date</label>
-                      <input id="date" class="block mt-1 w-full" type="date" v-model="selectedDate" required />
+                      <input id="date" class="block mt-1 w-full" type="date" v-model="selectedDate" required :min="getTodayDate()" />
                   </div>
                   <div class="flex items-center justify-end mt-4">
                   <button type="submit" class="btn">Book Now</button>

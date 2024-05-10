@@ -3,12 +3,12 @@ import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import { RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
 
 const userData = ref({});
 const selectedRating = ref('');
 const selectedReview = ref('');
-
+const router = useRouter();
 
 const fetchUser = () => {
   const loggedInUserId = localStorage.getItem('loggedInUserId');
@@ -45,6 +45,7 @@ const newReview = () => {
   axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=new_review', payload)
     .then(response => {
       console.log('Review created:', response.data);
+      router.push('/home');
     })
     .catch(error => {
       console.error('Error creating review:', error);

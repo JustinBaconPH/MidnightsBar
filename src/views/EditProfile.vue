@@ -1,44 +1,90 @@
-<template>
-    <main>
-          <NavBar />
-            <div class="wrapper">
-                    <div class="user-avatar">
-                      <img src="@/assets/rovick.jpg" alt="" class="account-pic" />
-                    </div>
-                    <h5 class="user-name">Rovick Merto</h5>
-                    <h6 class="user-email">rovick@gmail.com</h6>
-            </div>
 
-            <div class="wrapper2">
-          <div class="login-container">
-              <form class="login-form" action="#" method="POST">
-                  <div class="input-box">
-                      <label for="name">Name</label>
-                      <input id="name" class="block mt-1 w-full" type="text" value="Rovick Merto" />
-                  </div>
-                  <div class="input-box">
-                      <label for="contact">Contact Number</label>
-                      <input id="contact" class="block mt-1 w-full" type="text" value="0912345678901"/>
-                  </div>
-                  <div class="input-box">
-                      <label for="email">Email</label>
-                      <input id="email" class="block mt-1 w-full" type="text" value="rovickmerto@gmail.com"/>
-                  </div>
-                  <div class="flex items-center justify-end mt-4">
-                      <center><button type="submit" class="btn">Update</button></center>
-                  </div>
-              </form>
+<script setup>
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+// Reactive variables for user data
+const userData = ref({});
+
+// Fetch user data
+const fetchUserData = () => {
+  // Perform an API request to fetch user data
+  // Assuming you have a user ID stored in localStorage
+  const userId = localStorage.getItem('loggedInUserId');
+  axios.get(`http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${userId}`)
+    .then(response => {
+      userData.value = response.data[0]; // Assuming response.data contains user data and we want the first item
+    })
+    .catch(error => {
+      console.error('Error fetching user data:', error);
+    });
+};
+
+onMounted(fetchUserData);
+
+// Update user data
+const updateUser = () => {
+  // Assuming you have form input values bound to these variables
+  const userId = userData.value.user_id;
+  const username = userData.value.username;
+  const contactNumber = userData.value.contact_number;
+  
+  // Perform an API request to update user data
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=update_user', { userId, username, contactNumber })
+    .then(response => {
+      console.log('User data updated:', response.data);
+      // Redirect the user to the profile page after successful update
+      router.push('/home');
+    })
+    .catch(error => {
+      console.error('Error updating user data:', error);
+    });
+};
+</script>
+
+
+<template>
+  <main>
+    <NavBar />
+    <div class="wrapper">
+      <div class="user-avatar">
+        <img src="@/assets/rovick.jpg" alt="" class="account-pic" />
+      </div>
+      <h5 class="user-name">{{ userData.username }}</h5>
+      <h6 class="user-email">{{ userData.email }}</h6>
+    </div>
+
+    <div class="wrapper2">
+      <div class="login-container">
+        <form class="login-form" action="#">
+          <div class="input-box">
+            <input id="userId" class="block mt-1 w-full" type="hidden" v-model="userData.user_id" />
           </div>
-        </div>
-          
-    </main>
-  </template>
-  
-  <script setup>
-  import NavBar from "@/components/NavBar.vue";
-  import { RouterLink } from "vue-router";
-  </script>
-  
+          <div class="input-box">
+            <label for="name">Name</label>
+            <input id="name" class="block mt-1 w-full" type="text" v-model="userData.username" />
+          </div>
+          <div class="input-box">
+            <label for="contact">Contact Number</label>
+            <input id="contact" class="block mt-1 w-full" type="text" v-model="userData.contact_number" />
+          </div>
+          <div class="input-box">
+            <label for="email">Email</label>
+            <input id="email" class="block mt-1 w-full" type="text" :value="userData.email" readonly />
+          </div>
+          <div class="flex items-center justify-end mt-4">
+            <center><button type="submit" class="btn" @click.prevent="updateUser">Update</button></center>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+</template>
+
+
   <style scoped>
 .wrapper {
   width: 420px; /* Keep the width as it is */

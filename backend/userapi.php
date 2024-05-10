@@ -54,6 +54,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'create_user') 
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'update_user') {
+    // Retrieve payload data
+    $data = json_decode(file_get_contents("php://input"), true);
+  
+    // Extract data from payload
+    $userId = $data['userId']; // Assuming you pass the user ID from the frontend
+    $username = $data['username'];
+    $contactNumber = $data['contactNumber'];
+
+    // Update data in the user table
+    $stmt = $conn->prepare("UPDATE users SET username = ?, contact_number = ? WHERE user_id = ?");
+    $stmt->execute([$username, $contactNumber, $userId]);
+    
+    // Check if any rows were affected
+    if ($stmt->rowCount() > 0) {
+        // Send success response if user data was updated
+        echo json_encode(array('message' => 'User data updated successfully'));
+    } else {
+        // Send error response if no rows were affected (user ID not found or no changes)
+        echo json_encode(array('error' => 'No changes or user ID not found'));
+    }
+}
+////////////
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
     // Retrieve all not deleted records
     if ($_GET['action'] === 'get_all_notdeleted') {
@@ -75,34 +98,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
-    // Archive
-    if ($data['action'] === 'soft_archive') {
-        $user_id = $data['user_id'];
+    // Check if the 'action' key exists in the received data
+    if (isset($data['action'])) {
+        // Archive
+        if ($data['action'] === 'soft_archive') {
+            if (isset($data['user_id'])) {
+                $user_id = $data['user_id'];
 
-        try {
-            $stmt = $conn->prepare("UPDATE users SET is_deleted = 1 WHERE user_id = :user_id");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->execute();
-            echo json_encode(array("message" => "User archived successfully"));
-        } catch (PDOException $e) {
-            echo json_encode(array("error" => $e->getMessage()));
+                try {
+                    $stmt = $conn->prepare("UPDATE users SET is_deleted = 1 WHERE user_id = :user_id");
+                    $stmt->bindParam(':user_id', $user_id);
+                    $stmt->execute();
+                    echo json_encode(array("message" => "User archived successfully"));
+                } catch (PDOException $e) {
+                    echo json_encode(array("error" => $e->getMessage()));
+                }
+            } else {
+                echo json_encode(array("error" => "User ID not provided for archiving"));
+            }
         }
-    }
 
-    // Unarchive
-    if ($data['action'] === 'soft_unarchive') {
-        $user_id = $data['user_id'];
+        // Unarchive
+        if ($data['action'] === 'soft_unarchive') {
+            if (isset($data['user_id'])) {
+                $user_id = $data['user_id'];
 
-        try {
-            $stmt = $conn->prepare("UPDATE users SET is_deleted = 0 WHERE user_id = :user_id");
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->execute();
-            echo json_encode(array("message" => "User unarchived successfully"));
-        } catch (PDOException $e) {
-            echo json_encode(array("error" => $e->getMessage()));
+                try {
+                    $stmt = $conn->prepare("UPDATE users SET is_deleted = 0 WHERE user_id = :user_id");
+                    $stmt->bindParam(':user_id', $user_id);
+                    $stmt->execute();
+                    echo json_encode(array("message" => "User unarchived successfully"));
+                } catch (PDOException $e) {
+                    echo json_encode(array("error" => $e->getMessage()));
+                }
+            } else {
+                echo json_encode(array("error" => "User ID not provided for unarchiving"));
+            }
         }
+    } else {
+        // Handle other POST requests, if any
+        // For example, create_user or other actions
     }
 }
+
 
 
 ?>

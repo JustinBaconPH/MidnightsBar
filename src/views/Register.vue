@@ -3,6 +3,7 @@ import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const userData = ref({});
 
@@ -11,6 +12,8 @@ const input_email = ref('');
 const input_username = ref('');
 const input_contact_number = ref('');
 const input_password = ref('');
+
+const router = useRouter();
 
 const registerUser = () => {
   const payload = {
@@ -37,6 +40,7 @@ const registerUser = () => {
   axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=create_user', payload)
     .then(response => {
       console.log('Account created:', response.data);
+      router.push('/login');
     })
     .catch(error => {
       console.error('Error creating booking:', error);

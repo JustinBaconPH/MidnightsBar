@@ -9,7 +9,10 @@ include 'connection.php';
 
 //GETS SPECIFIC USER ID (TO BE REPLACED WITH A FUNCTION THAT WILL GET ID OF LOGGED IN USER)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
+    // Retrieve all records
     
+   
+
     //WORKS gets the id from login
     if ($_GET['action'] === 'get_all') {
         $user_id = $_GET['user_id']; // Get the user_id from the request
@@ -41,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
     }
 
-    // Retrieve all not deleted records
-    if ($_GET['action'] === 'get_all_notdeleted') {
+     // Retrieve all not deleted records
+     if ($_GET['action'] === 'get_all_notdeleted') {
         $stmt = $conn->prepare("SELECT * FROM book WHERE book_is_deleted = 0");
         $stmt->execute();
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -57,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode($rows);
     }
 }
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'create_booking') {
@@ -74,9 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'create_booking
   
     // Send success response
     echo json_encode(array('message' => 'Booking created successfully'));
-}
+  }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
     // Archive
