@@ -84,7 +84,7 @@ const loginUser = () => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .wrapper {
   width: 420px;
   /* Keep the width as it is */
