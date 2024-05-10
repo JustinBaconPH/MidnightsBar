@@ -65,7 +65,7 @@ onMounted(fetchUserData);
     <div class="blank-container"></div>
     <div class="user-container">
       <button @click="toggleDropdown" class="user-btn">
-        <img src="@/assets/rovick.jpg" alt="" class="account-pic" />
+        <img src="/assets/rovick.jpg" alt="" class="account-pic" />
         <p class="username-text text-overflow">{{ userData.username }}</p>
       </button>
       <!-- Dropdown menu -->

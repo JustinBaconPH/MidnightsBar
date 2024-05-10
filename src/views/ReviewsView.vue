@@ -26,7 +26,7 @@ onMounted(() => {
     <div class="background">
       <div class="opacity-black-screen">
         <div class="business-logo-container">
-          <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+          <img src="/assets/midnights-logo.png" alt="" class="business-logo">
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@ main {
 }
 
 .background {
-  background-image: url('@/assets/midnights-bg.JPG');
+  background-image: url('/assets/midnights-bg.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
@@ -279,7 +279,7 @@ p {
 }
 
 .inquire-content {
-  background-image: url('@/assets/inquire2.jpg');
+  background-image: url('/assets/inquire2.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

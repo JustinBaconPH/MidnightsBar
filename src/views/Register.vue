@@ -87,7 +87,7 @@ const registerUser = () => {
         </div>
       </div>
       <div class="business-logo-container">
-        <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+        <img src="/assets/midnights-logo.png" alt="" class="business-logo">
       </div>
     </div>
   </div>
@@ -237,7 +237,7 @@ input.transparent-input {
 
 /* Add your existing styles for background, logo container, and opacity */
 .background {
-  background-image: url('@/assets/midnights-bg.JPG');
+  background-image: url('/assets/midnights-bg.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

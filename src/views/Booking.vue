@@ -224,7 +224,7 @@ main {
 }
 
 .background {
-  background-image: url("@/assets/midnights-bg.JPG");
+  background-image: url("/assets/midnights-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

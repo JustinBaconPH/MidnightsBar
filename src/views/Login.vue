@@ -78,7 +78,7 @@ const loginUser = () => {
         </div>
       </div>
       <div class="business-logo-container">
-        <router-link to="/"><img src="@/assets/midnights-logo.png" alt="" class="business-logo"></router-link>
+        <router-link to="/"><img src="/assets/midnights-logo.png" alt="" class="business-logo"></router-link>
       </div>
     </div>
   </div>
@@ -228,7 +228,7 @@ input.transparent-input {
 
 /* Add your existing styles for background, logo container, and opacity */
 .background {
-  background-image: url('@/assets/midnights-bg.JPG');
+  background-image: url('/assets/midnights-bg.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

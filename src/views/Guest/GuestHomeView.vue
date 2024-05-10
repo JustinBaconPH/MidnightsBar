@@ -25,7 +25,7 @@ onMounted(() => {
     <div class="background">
       <div class="opacity-black-screen">
         <div class="business-logo-container">
-          <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+          <img src="/assets/midnights-logo.png" alt="" class="business-logo">
         </div>
       </div>
     </div>
@@ -42,16 +42,16 @@ onMounted(() => {
 
     <div class="gallery-container">
       <div class="gallery-item">
-        <img src="@/assets/Image 4.jpg" alt="Image 1" class="gallery-image" />
+        <img src="/assets/Image 4.jpg" alt="Image 1" class="gallery-image" />
       </div>
       <div class="gallery-item">
-        <img src="@/assets/Image 2.jpg" alt="Image 2" class="gallery-image" />
+        <img src="/assets/Image 2.jpg" alt="Image 2" class="gallery-image" />
       </div>
       <div class="gallery-item">
-        <img src="@/assets/Image 6.jpg" alt="Image 6" class="gallery-image" />
+        <img src="/assets/Image 6.jpg" alt="Image 6" class="gallery-image" />
       </div>
       <div class="gallery-item">
-        <img src="@/assets/Image 3.jpg" alt="Image 4" class="gallery-image" />
+        <img src="/assets/Image 3.jpg" alt="Image 4" class="gallery-image" />
       </div>
     </div>
 
@@ -98,7 +98,7 @@ main {
 }
 
 .background {
-  background-image: url('@/assets/midnights-bg.JPG');
+  background-image: url('/assets/midnights-bg.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
@@ -297,7 +297,7 @@ p {
 }
 
 .inquire-content {
-  background-image: url('@/assets/inquire2.jpg');
+  background-image: url('/assets/inquire2.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

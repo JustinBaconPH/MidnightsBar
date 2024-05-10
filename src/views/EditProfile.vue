@@ -50,7 +50,7 @@ const updateUser = () => {
     <NavBar />
     <div class="wrapper">
       <div class="user-avatar">
-        <img src="@/assets/rovick.jpg" alt="" class="account-pic" />
+        <img src="/assets/rovick.jpg" alt="" class="account-pic" />
       </div>
       <h5 class="user-name">{{ userData.username }}</h5>
       <h6 class="user-email">{{ userData.email }}</h6>
