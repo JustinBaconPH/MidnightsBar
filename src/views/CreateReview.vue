@@ -45,7 +45,7 @@ const newReview = () => {
   axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=new_review', payload)
     .then(response => {
       console.log('Review created:', response.data);
-      router.push('/home');
+      router.push('/reviews');
     })
     .catch(error => {
       console.error('Error creating review:', error);
@@ -64,7 +64,7 @@ const newReview = () => {
           </div>
           <form class="login-form" @submit.prevent="newReview">
             <p class="text-label">Stars: </p>
-            <select v-model="selectedRating" class="dropdown">
+            <select v-model="selectedRating" class="dropdown" required>
               <option :value="null" disabled>Select your rating</option>
               <option value="5">5 stars</option>
               <option value="4">4 stars</option>
@@ -72,9 +72,10 @@ const newReview = () => {
               <option value="2">2 stars</option>
               <option value="1">1 star</option>
             </select>
-            <textarea v-model="selectedReview" cols="50" rows="6"
-              placeholder="Tell us about your experience!"></textarea>
-            <button type="submit" class="btn">Send</button>
+            <p class="text-label">Review: </p>
+            <textarea v-model="selectedReview" cols="50" rows="6" placeholder="Tell us about your experience!"
+              required></textarea>
+            <button type="submit" class="btn" :disabled="!selectedRating || !selectedReview">Send</button>
           </form>
         </div>
       </div>
@@ -87,7 +88,6 @@ const newReview = () => {
 .dropdown {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
   border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   background-color: transparent;
@@ -106,7 +106,7 @@ const newReview = () => {
 }
 
 .text-label {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .wrapper {
@@ -167,7 +167,6 @@ textarea {
   width: 100%;
   height: 150px;
   padding: 10px 10px;
-  margin-top: 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;

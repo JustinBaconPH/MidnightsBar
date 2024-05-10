@@ -42,23 +42,28 @@ function closeDropdownOnClickOutside(event) {
 </script>
 
 <template>
-<nav>
+  <nav>
     <div class="menu-container">
       <ul>
-        <li><RouterLink to="/managereviews" class="nav-link" active-class="active">MANAGE REVIEW</RouterLink></li>
-        <li><RouterLink to="/managebooking" class="nav-link" active-class="active">MANAGE BOOKING</RouterLink></li>
-        <li><RouterLink to="/manageaccounts" class="nav-link" active-class="active">MANAGE PROFILE</RouterLink></li>
+        <li>
+          <RouterLink to="/managereviews" class="nav-link" active-class="active">MANAGE REVIEW</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/managebooking" class="nav-link" active-class="active">MANAGE BOOKING</RouterLink>
+        </li>
+        <li>
+          <RouterLink to="/manageaccounts" class="nav-link" active-class="active">MANAGE USERS</RouterLink>
+        </li>
       </ul>
     </div>
     <div class="user-container">
       <button @click="toggleUserDropdown" class="user-btn">
         <img src="@/assets/rovick.jpg" alt="" class="account-pic" />
-        <p class="username-text">Rovick Merto</p>
+        <p class="username-text">Admin</p>
       </button>
       <!-- Dropdown menu -->
       <transition name="fade">
         <div v-if="showUserDropdown" class="dropdown-content">
-          <router-link to="/editprofile">Edit Profile</router-link>
           <router-link to="/">Logout</router-link>
         </div>
       </transition>
@@ -68,126 +73,138 @@ function closeDropdownOnClickOutside(event) {
 
 <script>
 export default {
-    data() {
-        return {
-            showDropdown: false
-        };
-    },
-    methods: {
-        toggleDropdown() {
-            this.showDropdown = !this.showDropdown;
-        }
+  data() {
+    return {
+      showDropdown: false
+    };
+  },
+  methods: {
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
     }
+  }
 };
 </script>
 
 <style scoped>
-
-
-nav{
-    position:fixed;
-    height:4.4rem;
-    background-color: #000;
-    width: 100%;
-    display:flex;
-    z-index: 1;
+nav {
+  position: fixed;
+  height: 4.4rem;
+  background-color: #000;
+  width: 100%;
+  display: flex;
+  z-index: 1;
 }
 
-.username-text{
-    color:#fff;
-    font-family: 'Poppins', 'Montserrat', sans-serif;
-    font-size: 1rem;
-    font-weight: bold;
-    
-    width: 8rem;
+.username-text {
+  color: #fff;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: bold;
+
+  width: 8rem;
 }
-.account-pic,.username-text{
-    display:inline-block;
-    vertical-align: middle;
+
+.account-pic,
+.username-text {
+  display: inline-block;
+  vertical-align: middle;
 }
-.account-pic{
-    border-radius: 50%;
-    height:2.6rem;
-    width:2.6rem;
-    margin-right:0.8rem;
-    margin-left:1rem
+
+.account-pic {
+  border-radius: 50%;
+  height: 2.6rem;
+  width: 2.6rem;
+  margin-right: 0.8rem;
+  margin-left: 1rem
 }
-.blank-container{
-    
-    flex: 0.1;
+
+.blank-container {
+
+  flex: 0.1;
 }
+
 .user-container {
-    flex: 0.15;
-    display: flex;
-    flex-direction: row;
-    margin-left: auto;
-}
-.user-container >ul{
-     margin:0.7rem 0 0;
-     
-     padding: 0;
-     flex:1;
+  flex: 0.15;
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
 }
 
-.user-container >ul>li{
-     margin-top: 0;
-}
-.menu-container{
-    flex:0.82;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', 'Montserrat', sans-serif;
-    
-  
-    
+.user-container>ul {
+  margin: 0.7rem 0 0;
+
+  padding: 0;
+  flex: 1;
 }
 
-.menu-container > ul {
+.user-container>ul>li {
+  margin-top: 0;
+}
+
+.menu-container {
+  flex: 0.82;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+
+
+
+}
+
+.menu-container>ul {
   margin: 0;
-  width: 100%; /* Set width to 100% */
+  width: 100%;
+  /* Set width to 100% */
   height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center; /* Center align the items */
-  align-items: center; /* Vertically center the items */
+  justify-content: center;
+  /* Center align the items */
+  align-items: center;
+  /* Vertically center the items */
 }
 
-.menu-container > ul > li {
+.menu-container>ul>li {
   list-style: none;
   margin-right: 20px;
 }
 
 
-.menu-container > ul > li > a{
-    height:100%;
-    width: 100%;
-    display:block;
-    text-decoration: none;
-    color:#fff;
-    font-weight: bold;
-    text-align:center;
-    box-sizing: border-box;
-    padding-top: 1.7rem;
-    padding-bottom: 1.7rem;
-    font-size: 1rem;
-    font-family: 'Poppins', 'Montserrat', sans-serif;
-    cursor: pointer;
-  
-    
+.menu-container>ul>li>a {
+  height: 100%;
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 1.7rem;
+  padding-bottom: 1.7rem;
+  font-size: 1rem;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  cursor: pointer;
+
+
 }
 
-.user-container >ul>li{
- list-style: none;
+.user-container>ul>li {
+  list-style: none;
 }
 
-@media  only screen and (max-width:1000px) {
-    nav{background-color: red;}
+@media only screen and (max-width:1000px) {
+  nav {
+    background-color: red;
+  }
 }
 
-@media  only screen and (max-width:800px) {
-    nav{background-color: yellow;}
-    
+@media only screen and (max-width:800px) {
+  nav {
+    background-color: yellow;
+  }
+
 }
 
 .nav-link {
@@ -204,8 +221,9 @@ nav{
   font-family: 'Poppins', 'Montserrat', sans-serif;
   cursor: pointer;
   transition: background-color linear 0.3s, color linear 0.3s;
-  
+
 }
+
 .nav-link:hover {
   background-color: #3d3d3d;
 }
@@ -220,7 +238,8 @@ nav{
 }
 
 .user-btn:hover {
-  background-color: #3d3d3d; /* Change background color on hover */
+  background-color: #3d3d3d;
+  /* Change background color on hover */
 }
 
 .user-btn:focus {
@@ -232,14 +251,17 @@ nav{
 }
 
 .dropdown-content {
-    position: absolute;
+  position: absolute;
   top: calc(100%);
   right: 0;
   background-color: #1E1E1E;
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  width: auto; /* Make width auto to match button */
-  min-width: 15%; /* Ensure the dropdown is at least as wide as the button */
-  height: auto; /* Make height auto to match button */
+  width: auto;
+  /* Make width auto to match button */
+  min-width: 15%;
+  /* Ensure the dropdown is at least as wide as the button */
+  height: auto;
+  /* Make height auto to match button */
   z-index: 1;
 }
 
@@ -257,14 +279,17 @@ nav{
 }
 
 .dropdown-content-2 {
-    position: absolute;
+  position: absolute;
   top: calc(100%);
   right: 0;
   background-color: #1E1E1E;
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  width: auto; /* Make width auto to match button */
-  min-width: 15%; /* Ensure the dropdown is at least as wide as the button */
-  height: auto; /* Make height auto to match button */
+  width: auto;
+  /* Make width auto to match button */
+  min-width: 15%;
+  /* Ensure the dropdown is at least as wide as the button */
+  height: auto;
+  /* Make height auto to match button */
   z-index: 1;
   margin-left: -50px;
 }
@@ -291,5 +316,4 @@ nav{
 .fade-leave-to {
   opacity: 0;
 }
-
 </style>

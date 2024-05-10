@@ -64,11 +64,11 @@ const updateUser = () => {
           </div>
           <div class="input-box">
             <label for="name">Name</label>
-            <input id="name" class="block mt-1 w-full" type="text" v-model="userData.username" />
+            <input id="name" class="block mt-1 w-full" type="text" v-model="userData.username" maxlength="25" />
           </div>
           <div class="input-box">
             <label for="contact">Contact Number</label>
-            <input id="contact" class="block mt-1 w-full" type="text" v-model="userData.contact_number" />
+            <input id="contact" class="block mt-1 w-full" type="number" v-model="userData.contact_number" />
           </div>
           <div class="input-box">
             <label for="email">Email</label>
