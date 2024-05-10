@@ -1,21 +1,29 @@
 <?php
-include 'connection.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type");
 header('Content-Type: application/json');
 
+include 'connection.php';
+
 //GETS SPECIFIC USER ID (TO BE REPLACED WITH A FUNCTION THAT WILL GET ID OF LOGGED IN USER)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
     // Retrieve all records
+    
+   
+
+    //WORKS gets the id from login
     if ($_GET['action'] === 'get_all') {
-        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = 1");
-        $stmt->execute();
+        $user_id = $_GET['user_id']; // Get the user_id from the request
+    
+        $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+        $stmt->execute([$user_id]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($rows);
     }
 
+  
      // Retrieve user_id based on username, email, and contact_number
      if ($_GET['action'] === 'get_user_id') {
         $username = $_GET['username'];

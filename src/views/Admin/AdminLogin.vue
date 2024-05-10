@@ -1,38 +1,85 @@
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+
+// Define reactive variables for form inputs and logged-in admin ID
+const inputEmail = ref('');
+const inputPassword = ref('');
+const loginError = ref('');
+const loggedInAdminId = ref(null);
+
+const router = useRouter();
+
+const loginAdmin = () => {
+  const payload = {
+    email: inputEmail.value,
+    password: inputPassword.value
+  };
+
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/adminapi.php?action=admin_login', payload)
+  .then(response => {
+    console.log('Admin login response:', response.data);
+    if (response.data.error) {
+      loginError.value = response.data.error;
+    } else {
+      // Set the admin_id upon successful login
+      loggedInAdminId.value = response.data.admin.admin_id;
+      console.log('Admin ID:', loggedInAdminId.value); // Log the admin_id
+      
+      // Store the admin ID in local storage if needed
+      localStorage.setItem('loggedInAdminId', loggedInAdminId.value);
+      
+      // Redirect the admin to the desired page upon successful login
+      router.push('/managereviews');
+    }
+  })
+  .catch(error => {
+    console.error('Error logging in:', error);
+    loginError.value = 'An error occurred while logging in. Please try again later.';
+  });
+};
+</script>
+
+
+
 <template>
-    <div class="background">
-  <div class="opacity-black-screen">
-    <div class="wrapper">
-<div class="login-container">
-<form class="login-form" action="#" method="POST">
-    <h1>SIGN IN</h1>
-  <div class="input-box">
-    <label for="email">Email</label>
-    <input id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="username" />
-  </div>
-  <div class="input-box">
-    <label for="password">Password</label>
-    <input id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
-  </div>
-  <div class="block mt-4">
-    <label for="remember_me" class="flex items-center">
-      <input type="checkbox" id="remember_me" />
-      <span class="ml-2 text-sm text-gray-600">Remember me</span>
-    </label>
-  </div>
-  <div class="flex items-center justify-end mt-4">
-    <router-link to="/managebooking"><button type="submit" class="btn">Log in</button></router-link>
-<center>
-  <router-link to="/" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md">Forgot your password?</router-link>
-</center>
-</div>
-</form>
-</div>
-</div>
-    <div class="business-logo-container">
-      <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+  <div class="background">
+    <div class="opacity-black-screen">
+      <div class="wrapper">
+        <div class="login-container">
+          <form class="login-form" @submit.prevent="loginAdmin">
+            <h1>SIGN IN</h1>
+            <div class="input-box">
+              <label for="email">Email</label>
+              <input v-model="inputEmail" id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="username" />
+            </div>
+            <div class="input-box">
+              <label for="password">Password</label>
+              <input v-model="inputPassword" id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
+            </div>
+            <div class="block mt-4">
+              <label for="remember_me" class="flex items-center">
+                <input type="checkbox" id="remember_me" />
+                <span class="ml-2 text-sm text-gray-600">Remember me</span>
+              </label>
+            </div>
+            <div class="flex items-center justify-end mt-4">
+              <button type="submit" class="btn">Log in</button>
+              <center v-if="loginError" style="color: red;">{{ loginError }}</center>
+              <center>
+                <router-link to="/" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md">Forgot your password?</router-link>
+              </center>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="business-logo-container">
+        <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <style>

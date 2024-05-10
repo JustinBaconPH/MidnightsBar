@@ -1,17 +1,63 @@
+<script setup>
+import { ref } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+
+// Define reactive variables for form inputs
+const inputEmail = ref('');
+const inputPassword = ref('');
+const loginError = ref('');
+const loggedInUserId = ref(null);
+
+const router = useRouter();
+
+const loginUser = () => {
+  const payload = {
+    email: inputEmail.value,
+    password: inputPassword.value
+  };
+
+   //WORKS
+    axios.post('http://localhost/GRP5_MIDNIGHTS/backend/userapi.php?action=login_user', payload)
+  .then(response => {
+    console.log('Login response:', response.data);
+    if (response.data.error) {
+      loginError.value = response.data.error;
+    } else {
+      // Set the user_id upon successful login
+      loggedInUserId.value = response.data.user.user_id;
+      console.log('User ID:', loggedInUserId.value); // Log the user_id
+      
+      // Store the user ID in local storage
+      localStorage.setItem('loggedInUserId', loggedInUserId.value);
+      
+      // Redirect the user to the home page or perform other actions upon successful login
+      router.push('/home');
+    }
+  })
+  .catch(error => {
+    console.error('Error logging in:', error);
+    loginError.value = 'An error occurred while logging in. Please try again later.';
+  });
+};
+
+</script>
+
 <template>
         <div class="background">
       <div class="opacity-black-screen">
         <div class="wrapper">
   <div class="login-container">
-    <form class="login-form" action="#" method="POST">
+    <form class="login-form" @submit.prevent="loginUser">
         <h1>SIGN IN</h1>
       <div class="input-box">
         <label for="email">Email</label>
-        <input id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="username" />
+        <input v-model="inputEmail" id="email" class="block mt-1 w-full" type="email" required autofocus autocomplete="username" />
       </div>
       <div class="input-box">
         <label for="password">Password</label>
-        <input id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
+        <input v-model="inputPassword" id="password" class="block mt-1 w-full" type="password" required autocomplete="current-password" />
       </div>
       <div class="block mt-4">
         <label for="remember_me" class="flex items-center">
@@ -20,7 +66,8 @@
         </label>
       </div>
       <div class="flex items-center justify-end mt-4">
-        <router-link to="/home"><button type="submit" class="btn">Log in</button></router-link>
+        <button type="submit" class="btn">Log in</button>
+        <center v-if="loginError" style="color: red;">{{ loginError }}</center>
     <center>
       <router-link to="/" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md">Forgot your password?</router-link>
     </center>

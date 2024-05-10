@@ -4,29 +4,31 @@ import Footers from "@/components/Footers.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-
-
-//GETS USER DATA START (WORKS)
-const userData = ref({});
-
-const fetchUser = () => {
-  const url = 'http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all';
-  axios.get(url)
-    .then((response) => {
-      userData.value = response.data[0]; // Assuming you're fetching only one user
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error)
-    });
-};
-
-onMounted(fetchUser);
-//GET USER DATA ENDS
-
 //MAKES BOOK RECORDS (WORKS)
+const userData = ref({});
 const selectedPackage = ref('');
 const selectedDate = ref('');
 
+// WORKS
+// Function to fetch user data upon component mount
+const fetchUser = () => {
+  const loggedInUserId = localStorage.getItem('loggedInUserId');
+  if (loggedInUserId) {
+    axios.get(`http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+      .then((response) => {
+        userData.value = response.data[0]; // Assuming you're fetching only one user
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error)
+      }); 
+  } else {
+    console.error('User ID not found in local storage');
+  }
+};
+
+onMounted(fetchUser);
+
+//WORKS DONT CHANGE
 const registerBooking = () => {
   const payload = {
     user_id: userData.value.user_id,
