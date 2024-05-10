@@ -5,122 +5,132 @@ import { RouterLink } from 'vue-router';
 </script>
 
 <template>
-<main>
-  <NavBar/>
-  <div class="background">
-    <div class="opacity-black-screen">
-      <div class="business-logo-container">
-        <img src="@/assets/midnights-logo.png" alt="" class="business-logo">
+  <main>
+    <NavBar />
+    <div class="background">
+      <div class="opacity-black-screen">
+        <div class="business-logo-container">
+          <img src="/assets/midnights-logo.png" alt="" class="business-logo">
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="about-us-content">
-    <p>About Us</p>
-  </div>
+    <div class="about-us-content">
+      <p>About Us</p>
+    </div>
 
-  <div class="about-us-text">
-    <p>Cheers to unforgettable memories! Elevate your event with our rustic mobile bar, where great drinks and good times come together.</p>
-  </div>
-  
-  <div class="review-profile">
-          <div class="profile-container">
-            <img src="@/assets/about us image.jpg" alt="" class="user-pic" />
-          </div>
-          <div class="name-container">
-            <p>We cater quality alcoholic drinks and offer great service to our guests as standard. Aside from this, we provide drink mixes and new blends that are out of the ordinary. Our packages are different and more creative than other mobile bar businesses.</p>
-            <br>
-            <p>We also have professional bartenders that will make sure you’re provided with high quality drinks and exceptional service.</p>
-          </div>
-        </div>
+    <div class="about-us-text">
+      <p>Cheers to unforgettable memories! Elevate your event with our rustic mobile bar, where great drinks and good
+        times come together.</p>
+    </div>
+
+    <div class="review-profile">
+      <div class="profile-container">
+        <img src="/assets/about us image.jpg" alt="" class="user-pic" />
+      </div>
+      <div class="name-container">
+        <p>We cater quality alcoholic drinks and offer great service to our guests as standard. Aside from this, we
+          provide drink mixes and new blends that are out of the ordinary. Our packages are different and more creative
+          than other mobile bar businesses.</p>
+        <br>
+        <p>We also have professional bartenders that will make sure you’re provided with high quality drinks and
+          exceptional service.</p>
+      </div>
+    </div>
 
 
-  <div class="about-us-content-2">
-    Unforgettable memories begin with Midnights!
-  </div>
+    <div class="about-us-content-2">
+      Unforgettable memories begin with Midnights!
+    </div>
 
-  <Footers/>
-</main>
+    <Footers />
+  </main>
 
 </template>
 
 <style scoped>
-main{
+main {
   background-color: #000;
-  min-height:100vh;
-  height:auto;
-  padding:0;
-  margin:0;
-  box-sizing:border-box;
-  overflow:hidden;
-  display:flex;
+  min-height: 100vh;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
   flex-direction: column;
 }
 
-.background{
-  background-image: url('@/assets/midnights-bg.JPG');
+.background {
+  background-image: url('/assets/midnights-bg.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;
-  min-height:100vh;
+  min-height: 100vh;
 }
 
-.business-logo-container{
-  height:45rem;
+.business-logo-container {
+  height: 45rem;
   width: 68rem;
 }
 
-.business-logo{
-  height:100%;
+.business-logo {
+  height: 100%;
   width: 100%;
-  object-fit:contain;
+  object-fit: contain;
 }
 
-.opacity-black-screen{
-  background-color:rgb(0, 0, 0, 0.8); /*opacity */
-  height:100vh;
+.opacity-black-screen {
+  background-color: rgb(0, 0, 0, 0.8);
+  /*opacity */
+  height: 100vh;
   width: 100vw;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-p{
-  color:#fff;
+p {
+  color: #fff;
 }
 
-.about-us-content,.about-us-content-2{
-  text-align:center;
-  margin:auto;
-  min-height:2rem;
+.about-us-content,
+.about-us-content-2 {
+  text-align: center;
+  margin: auto;
+  min-height: 2rem;
   margin-top: 4rem;
   margin-bottom: rem;
   font-weight: bold;
   font-size: 3rem;
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  color:#fff;
+  color: #fff;
   background-color: transparent;
-  height:auto;
+  height: auto;
 
 }
-.about-us-content-2{
-  margin-top:10rem;
-  margin-bottom:5rem;
+
+.about-us-content-2 {
+  margin-top: 10rem;
+  margin-bottom: 5rem;
 }
-.about-us-text,.about-us-text-2{
-  text-align:center;
-  margin:auto;
+
+.about-us-text,
+.about-us-text-2 {
+  text-align: center;
+  margin: auto;
   margin-left: 20rem;
   margin-right: 20rem;
-  height:auto;  
+  height: auto;
   font-weight: bold;
   font-size: 1.5rem;
   font-family: 'Poppins', 'Montserrat', sans-serif;
   margin-bottom: 4rem;
-  height:auto;
+  height: auto;
 }
 
-.gallery-container,.review-container {
+.gallery-container,
+.review-container {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -131,14 +141,16 @@ p{
   margin-bottom: 1.2rem;
   padding: 2rem
 }
-.review-container{
+
+.review-container {
   background-color: transparent;
-  height:auto;
+  height: auto;
   justify-content: center;
 }
+
 .gallery-item {
   height: 30rem;
-  padding: 0; 
+  padding: 0;
   position: relative;
   /*overflow: hidden;*/
   justify-content: space-around;
@@ -147,42 +159,43 @@ p{
   /* border: 1px solid #000; */
   margin: 0 0.8rem;
 }
+
 .gallery-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 30px;
-  
+
 }
 
-.review-box{
+.review-box {
   border: 0.1rem solid #FFF;
-  display:flex;
-  flex:1;
+  display: flex;
+  flex: 1;
   justify-content: center;
-  border-radius:2rem;
-  margin:0.8rem;
+  border-radius: 2rem;
+  margin: 0.8rem;
   flex-direction: column;
   padding: 1.2rem;
 }
 
-.review-ratings-container{
-  flex:1;
+.review-ratings-container {
+  flex: 1;
   background-color: transparent;
-  margin-top:1rem;
+  margin-top: 1rem;
 }
 
-.review-comment{
+.review-comment {
   font-weight: bold;
-  color:#FFF;
+  color: #FFF;
   font-size: 1.2rem;
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  margin-top:2rem;
+  margin-top: 2rem;
   line-height: 1.4;
 }
 
-.review-profile{
-  flex:5;
+.review-profile {
+  flex: 5;
   /* border: 1px solid #fff; */
   display: flex;
   flex-direction: row;
@@ -191,96 +204,102 @@ p{
   height: 100%;
   width: 100%;
 }
-.profile-container{
-  flex:1s;
+
+.profile-container {
+  flex: 1s;
   background-color: transparent;
-  display:flex;
+  display: flex;
   height: 100%;
   width: 50%;
-  
-  
+
+
 }
-.name-container{
-  flex:0.9;
+
+.name-container {
+  flex: 0.9;
   /* background-color:pink; */
-  padding: 0 0 0 3rem; /*top, right, bottom, left*/
+  padding: 0 0 0 3rem;
+  /*top, right, bottom, left*/
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  font-weight:bold;
+  font-weight: bold;
   justify-content: center;
   flex-direction: column;
-  display:flex;
-  
+  display: flex;
+
 }
 
-.name-container >p{
-padding: 0 0;
-margin: 0;
-/* border:1px solid #000; */
-background-color: transparent;
-font-weight: bold;
-font-size: 1.5rem;
-line-height: 1.8rem;
+.name-container>p {
+  padding: 0 0;
+  margin: 0;
+  /* border:1px solid #000; */
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 1.5rem;
+  line-height: 1.8rem;
 }
 
-.user-pic{
-  margin: 0 0 0 5rem ;
+.user-pic {
+  margin: 0 0 0 5rem;
   height: 30rem;
-  width:  42rem;
+  width: 42rem;
   border-radius: 3rem;
   background-image: cover;
 }
 
-.client{
+.client {
   font-weight: normal;
 }
 
-.review-star{
+.review-star {
   margin-right: 0.3rem;
 }
 
-.button{
-  text-decoration:none;
-  color:#fff;
+.button {
+  text-decoration: none;
+  color: #fff;
   font-size: 1.3rem;
   font-family: 'Poppins', 'Montserrat', sans-serif;
   border: 1px solid #fff;
   padding: 1rem 2rem 1rem 2rem;
   border-radius: 0.5rem;
-  height:1rem;
+  height: 1rem;
   cursor: pointer;
-  transition:background-color linear 0.3s,color linear 0.3s;
+  transition: background-color linear 0.3s, color linear 0.3s;
 }
 
-.button:hover{
+.button:hover {
   background-color: #7f8080;
 }
 
-.inquire-content{
-  background-image: url('@/assets/inquire2.jpg');
+.inquire-content {
+  background-image: url('/assets/inquire2.jpg');
   background-repeat: no-repeat;
   background-attachment: scroll;
-  background-size: 100%; /* or specify a fixed size, e.g., 50% */
+  background-size: 100%;
+  /* or specify a fixed size, e.g., 50% */
   align-items: center;
   justify-content: center;
 }
-  
 
-.inquire-logo-container{
+
+.inquire-logo-container {
   height: 5rem;
   width: 5rem;
 }
-.inquire-black-screen{
-  background-color:rgb(0, 0, 0, 0.8); /*opacity */
-  height:100vh;
+
+.inquire-black-screen {
+  background-color: rgb(0, 0, 0, 0.8);
+  /*opacity */
+  height: 100vh;
   width: 100;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Poppins', 'Montserrat', sans-serif;
   font-size: 2.5rem;
 }
 
-.inquire-text{
+.inquire-text {
   font-family: 'Poppins', 'Montserrat', sans-serif;
   font-size: 3.5rem;
   align-items: center;
@@ -292,27 +311,31 @@ line-height: 1.8rem;
   flex-wrap: wrap;
 }
 
-.reviews-button-content{
-  text-align:center;
-  margin:auto;
-  min-height:8rem;
+.reviews-button-content {
+  text-align: center;
+  margin: auto;
+  min-height: 8rem;
   margin-top: 2rem;
   margin-bottom: 3rem;
   font-weight: bold;
   font-size: 2.5rem;
   font-family: 'Poppins', 'Montserrat', sans-serif;
-  color:#fff;
+  color: #fff;
   background-color: transparent;
-  height:auto;
+  height: auto;
 
 }
 
-@media  only screen and (max-width:1000px) {
-    nav{background-color: red;}
+@media only screen and (max-width:1000px) {
+  nav {
+    background-color: red;
+  }
 }
 
-@media  only screen and (max-width:800px) {
-    nav{background-color: yellow;}
-    
+@media only screen and (max-width:800px) {
+  nav {
+    background-color: yellow;
+  }
+
 }
 </style>

@@ -1,7 +1,75 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
-import { RouterLink } from "vue-router";
+import { ref, onMounted } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+
+
+//MAKES BOOK RECORDS (WORKS)
+const userData = ref({});
+const selectedPackage = ref('');
+const selectedDate = ref('');
+
+const router = useRouter();
+
+// WORKS
+// Function to fetch user data upon component mount
+const fetchUser = () => {
+  const loggedInUserId = localStorage.getItem('loggedInUserId');
+  if (loggedInUserId) {
+    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+      .then((response) => {
+        userData.value = response.data[0]; // Assuming you're fetching only one user
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error)
+      });
+  } else {
+    console.error('User ID not found in local storage');
+  }
+};
+
+onMounted(fetchUser);
+
+//WORKS DONT CHANGE
+const registerBooking = () => {
+  const payload = {
+    user_id: userData.value.user_id,
+    package: selectedPackage.value,
+    date: selectedDate.value
+  };
+
+  console.log('Selected ID:', payload.user_id);
+  // Log to check if package is retrieved correctly
+  console.log('Selected Package:', payload.package);
+  // Log to check if date is retrieved correctly
+  console.log('Selected Date:', payload.date);
+
+
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=create_booking', payload)
+    .then(response => {
+      console.log('Booking created:', response.data);
+      router.push('/home');
+    })
+    .catch(error => {
+      console.error('Error creating booking:', error);
+    });
+};
+
+const getTodayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month = today.getMonth() + 1;
+  let day = today.getDate();
+
+  // Add leading zero if month or day is less than 10
+  month = month < 10 ? '0' + month : month;
+  day = day < 10 ? '0' + day : day;
+
+  // Format: YYYY-MM-DD
+  return `${year}-${month}-${day}`;
+};
 </script>
 
 <template>
@@ -11,27 +79,42 @@ import { RouterLink } from "vue-router";
       <div class="opacity-black-screen">
         <div class="wrapper2">
           <div class="login-container">
-              <form class="login-form" action="#" method="POST">
-                  <div class="input-box">
-                      <label for="name">Name</label>
-                      <input id="name" class="block mt-1 w-full" type="text" value="Rovick Merto" readonly />
-                  </div>
-                  <div class="input-box">
-                      <label for="contact">Contact Number</label>
-                      <input id="contact" class="block mt-1 w-full" type="text" value="0912345678901" readonly />
-                  </div>
-                  <div class="input-box">
-                      <label for="email">Email</label>
-                      <input id="email" class="block mt-1 w-full" type="text" value="rovickmerto@gmail.com" readonly />
-                  </div>
-                  <div class="input-box">
-                      <label for="date">Choose Date</label>
-                      <input id="date" class="block mt-1 w-full" type="date" required />
-                  </div>
-                  <div class="flex items-center justify-end mt-4">
-                      <center><button type="submit" class="btn">Book Now</button></center>
-                  </div>
-              </form>
+            <form class="login-form" @submit.prevent="registerBooking">
+              <div class="input-box">
+                <input id="userId" type="hidden" v-model="userData.user_id" />
+              </div>
+              <div class="input-box">
+                <label for="name">Name</label>
+                <input id="name" class="block mt-1 w-full" type="text" v-model="userData.username" readonly />
+              </div>
+              <div class="input-box">
+                <label for="contact">Contact Number</label>
+                <input id="contact" class="block mt-1 w-full" type="text" v-model="userData.contact_number" readonly />
+              </div>
+              <div class="input-box">
+                <label for="email">Email</label>
+                <input id="email" class="block mt-1 w-full" type="text" v-model="userData.email" readonly />
+              </div>
+              <div class="input-box">
+                <label for="package">Choose Package</label>
+                <select id="package" class="block mt-1 w-full dropdown" v-model="selectedPackage">
+                  <option value="Package 1">Package 1</option>
+                  <option value="Package 2">Package 2</option>
+                  <option value="Package 3">Package 3</option>
+                  <option value="Package 4">Package 4</option>
+                  <option value="Package 5">Package 5</option>
+                  <option value="Package 6">Package 6</option>
+                </select>
+              </div>
+              <div class="input-box">
+                <label for="date">Choose Date</label>
+                <input id="date" class="block mt-1 w-full" type="date" v-model="selectedDate" required
+                  :min="getTodayDate()" />
+              </div>
+              <div class="flex items-center justify-end mt-4">
+                <button type="submit" class="btn">Book Now</button>
+              </div>
+            </form>
           </div>
         </div>
         <div class="wrapper">
@@ -39,11 +122,35 @@ import { RouterLink } from "vue-router";
         </div>
       </div>
     </div>
-    <Footers/>
+    <Footers />
   </main>
 </template>
 
+
+
 <style scoped>
+.dropdown {
+  width: 110% !important;
+  padding: 20px 45px 20px 20px;
+  border: 2px solid rgba(0, 0, 0);
+  border-radius: 40px;
+  background-color: transparent;
+  color: black;
+  font-size: 16px;
+  outline: none;
+  margin-top: 15px;
+}
+
+.dropdown option {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: black;
+  color: black;
+}
+
+.dropdown:focus {
+  border-color: #3498db;
+}
+
 .wrapper {
   width: 420px;
   /* Keep the width as it is */
@@ -58,9 +165,9 @@ import { RouterLink } from "vue-router";
   border-radius: 10px;
   padding: 200px 40px 200px;
   position: absolute;
-  /* Add this line */
   left: 300px;
-  /* Adjust the left position according to your preference */
+  display: flex;
+  justify-content: center;
 }
 
 .wrapper2 {
@@ -84,24 +191,24 @@ import { RouterLink } from "vue-router";
 }
 
 .wrapper2 .btn {
-    width: 50%;
-    height: 45px;
-    background: #fff;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+  width: 50%;
+  height: 45px;
+  background: #fff;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .wrapper2 .btn:hover {
-    background-color: black;
-    color: #fff; 
+  background-color: black;
+  color: #fff;
 }
 
 main {
@@ -117,7 +224,7 @@ main {
 }
 
 .background {
-  background-image: url("@/assets/midnights-bg.JPG");
+  background-image: url("/assets/midnights-bg.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-size: cover;

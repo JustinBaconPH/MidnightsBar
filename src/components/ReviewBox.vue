@@ -1,7 +1,31 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const props = defineProps({
+    review: Object
+});
+
+const user = ref(null);
+
+// Fetch the username of the user who posted the review
+const fetchUsername = () => {
+    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_by_id&review_id=${props.review.review_id}`)
+        .then(response => {
+            user.value = response.data.username;
+        })
+        .catch(error => {
+            console.error('Error fetching username:', error);
+        });
+};
+
+onMounted(fetchUsername);
+</script>
+
 <template>
     <div class="review-box">
         <div class="review-ratings-container">
-            <img v-for="star in review.review_stars" :key="star" src="@/assets/icons/star.svg" alt=""
+            <img v-for="star in review.review_stars" :key="star" src="/assets/icons/star.svg" alt=""
                 class="review-star" />
         </div>
         <div class="review-comment mx-auto">
@@ -10,36 +34,15 @@
 
         <div class="review-profile">
             <div class="profile-container">
-                <img src="@/assets/rovick.jpg" alt="" class="user-pic" />
+                <img src="/assets/rovick.jpg" alt="" class="user-pic" />
             </div>
             <div class="name-container">
-                <p>{{ user?.username }}</p>
+                <p>{{ user }}</p>
                 <p class="client">Client</p>
             </div>
         </div>
     </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
-import { defineProps } from 'vue';
-
-const props = defineProps({
-    review: Object
-});
-
-const user = ref(null);
-
-onMounted(async () => {
-    try {
-        const response = await axios.get(`http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=get_by_id&review_id=${props.review.user_id}`);
-        user.value = response.data;
-    } catch (error) {
-        console.error('Error fetching user information:', error);
-    }
-});
-</script>
 
 <style scoped>
 .review-container {

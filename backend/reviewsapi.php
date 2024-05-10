@@ -67,4 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'new_review') {
+    $data = json_decode(file_get_contents("php://input"), true);
+  
+    // Extract data from payload
+    $user_id = $data['user_id'];
+    $stars = $data['stars'];
+    $content = $data['content'];
+  
+    // Insert data into book table
+    $stmt = $conn->prepare("INSERT INTO reviews (user_id, review_stars, review_content, is_deleted) VALUES (?, ?, ?, 0)");
+    $stmt->execute([$user_id, $stars, $content]);
+  
+    // Send success response
+    echo json_encode(array('message' => 'Review created successfully'));
+  }
 ?>
