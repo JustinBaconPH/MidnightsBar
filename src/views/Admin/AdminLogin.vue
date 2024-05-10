@@ -17,7 +17,7 @@ const loginAdmin = () => {
     password: inputPassword.value
   };
 
-  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/adminapi.php?action=admin_login', payload)
+  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/adminapi.php?action=admin_login', payload)
     .then(response => {
       console.log('Admin login response:', response.data);
       if (response.data.error) {
