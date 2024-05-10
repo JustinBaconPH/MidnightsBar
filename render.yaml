@@ -1,0 +1,9 @@
+# Exported from Render on 2024-05-10T22:32:12Z
+services:
+- type: web
+  name: GRP5_MIDNIGHTS_MAIN
+  runtime: static
+  repo: https://github.com/JustinBaconPH/GRP5_MIDNIGHTS_MAIN
+  buildCommand: npm install; npm run build
+  staticPublishPath: dist
+version: "1"
