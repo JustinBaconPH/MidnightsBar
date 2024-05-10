@@ -13,7 +13,7 @@ const fetchUserData = () => {
   // Perform an API request to fetch user data
   // Assuming you have a user ID stored in localStorage
   const userId = localStorage.getItem('loggedInUserId');
-  axios.get(`http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${userId}`)
+  axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${userId}`)
     .then(response => {
       userData.value = response.data[0]; // Assuming response.data contains user data and we want the first item
     })
@@ -32,7 +32,7 @@ const updateUser = () => {
   const contactNumber = userData.value.contact_number;
 
   // Perform an API request to update user data
-  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=update_user', { userId, username, contactNumber })
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/userapi.php?action=update_user', { userId, username, contactNumber })
     .then(response => {
       console.log('User data updated:', response.data);
       // Redirect the user to the profile page after successful update

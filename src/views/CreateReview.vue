@@ -13,7 +13,7 @@ const router = useRouter();
 const fetchUser = () => {
   const loggedInUserId = localStorage.getItem('loggedInUserId');
   if (loggedInUserId) {
-    axios.get(`http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+    axios.get(`https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
       .then((response) => {
         userData.value = response.data[0];
       })
@@ -42,7 +42,7 @@ const newReview = () => {
   console.log('Selected Content:', payload.content);
 
 
-  axios.post('http://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=new_review', payload)
+  axios.post('https://sql107.infinityfree.com/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=new_review', payload)
     .then(response => {
       console.log('Review created:', response.data);
       router.push('/reviews');
