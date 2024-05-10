@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_GET['action'] === 'create_user') 
     // Perform validation and authentication here
 
     // Example: Check if email and password match a user record in the database
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ?");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND password = ? AND is_deleted = 0");
     $stmt->execute([$email, $password]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
