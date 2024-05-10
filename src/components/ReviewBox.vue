@@ -23,7 +23,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-import { defineProps } from 'vue';
 
 const props = defineProps({
     review: Object
