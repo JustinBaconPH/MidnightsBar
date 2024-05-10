@@ -1,7 +1,55 @@
 <script setup>
 import NavBar from "@/components/NavBar.vue";
 import Footers from "@/components/Footers.vue";
+import { ref, onMounted } from "vue";
+import axios from "axios";
 import { RouterLink } from "vue-router";
+
+const userData = ref({});
+const selectedRating = ref('');
+const selectedReview = ref('');
+
+
+const fetchUser = () => {
+  const loggedInUserId = localStorage.getItem('loggedInUserId');
+  if (loggedInUserId) {
+    axios.get(`http://localhost/GRP5_MIDNIGHTS/backend/bookapi.php?action=get_all&user_id=${loggedInUserId}`)
+      .then((response) => {
+        userData.value = response.data[0];
+      })
+      .catch((error) => {
+        console.error('Error fetching user data:', error)
+      });
+  } else {
+    console.error('User ID not found in local storage');
+  }
+};
+
+onMounted(fetchUser);
+
+//WORKS DONT CHANGE
+const newReview = () => {
+  const payload = {
+    user_id: userData.value.user_id,
+    stars: selectedRating.value,
+    content: selectedReview.value
+  };
+
+  console.log('Selected ID:', payload.user_id);
+  // Log to check if package is retrieved correctly
+  console.log('Selected Stars:', payload.stars);
+  // Log to check if date is retrieved correctly
+  console.log('Selected Content:', payload.content);
+
+
+  axios.post('http://localhost/GRP5_MIDNIGHTS/backend/reviewsapi.php?action=new_review', payload)
+    .then(response => {
+      console.log('Review created:', response.data);
+    })
+    .catch(error => {
+      console.error('Error creating review:', error);
+    });
+};
 </script>
 
 <template>
@@ -13,18 +61,20 @@ import { RouterLink } from "vue-router";
           <h1>Rate your experience!</h1>
           <div class="content">We highly value your feedback! Kindly take a moment to share your experiences with us!
           </div>
-
-          <p class="text-label">Stars: </p>
-          <select v-model="selectedRating" class="dropdown">
-            <option :value="null" disabled>Select your rating</option>
-            <option value="5">5 stars</option>
-            <option value="4">4 stars</option>
-            <option value="3">3 stars</option>
-            <option value="2">2 stars</option>
-            <option value="1">1 star</option>
-          </select>
-          <textarea v-model="review" cols="50" rows="6" placeholder="Tell us about your experience!"></textarea>
-          <button @click="submitReview" class="btn">Send</button>
+          <form class="login-form" @submit.prevent="newReview">
+            <p class="text-label">Stars: </p>
+            <select v-model="selectedRating" class="dropdown">
+              <option :value="null" disabled>Select your rating</option>
+              <option value="5">5 stars</option>
+              <option value="4">4 stars</option>
+              <option value="3">3 stars</option>
+              <option value="2">2 stars</option>
+              <option value="1">1 star</option>
+            </select>
+            <textarea v-model="selectedReview" cols="50" rows="6"
+              placeholder="Tell us about your experience!"></textarea>
+            <button type="submit" class="btn">Send</button>
+          </form>
         </div>
       </div>
     </div>
